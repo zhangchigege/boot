@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
-public class ServerResponse implements Serializable{
+public class ServerResponse implements Serializable {
 
     private static final long serialVersionUID = 7498483649536881777L;
 

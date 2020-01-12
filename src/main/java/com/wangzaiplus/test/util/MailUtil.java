@@ -42,10 +42,10 @@ public class MailUtil {
 
         try {
             mailSender.send(message);
-            log.info("邮件发送成功");
+          //  log.info("邮件发送成功");
             return true;
         } catch (MailException e) {
-            log.error("邮件发送失败, to: {}, title: {}", to, title, e);
+          //  log.error("邮件发送失败, to: {}, title: {}", to, title, e);
             return false;
         }
     }
@@ -72,10 +72,10 @@ public class MailUtil {
             String fileName = file.getName();
             helper.addAttachment(fileName, resource);
             mailSender.send(message);
-            log.info("附件邮件发送成功");
+          //////  log.info("附件邮件发送成功");
             return true;
         } catch (Exception e) {
-            log.error("附件邮件发送失败, to: {}, title: {}", to, title, e);
+           // log.error("附件邮件发送失败, to: {}, title: {}", to, title, e);
             return false;
         }
     }

@@ -1,6 +1,8 @@
 package com.wangzaiplus.test.util;
 
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
@@ -12,6 +14,8 @@ public class JedisUtil {
 
     @Autowired
     private JedisPool jedisPool;
+
+    private Logger log = LoggerFactory.getLogger(JedisUtil.class);
 
     private Jedis getJedis() {
         return jedisPool.getResource();
@@ -60,6 +64,7 @@ public class JedisUtil {
 
     /**
      * 设值
+     * 并设置锁
      *
      * @param key
      * @param value

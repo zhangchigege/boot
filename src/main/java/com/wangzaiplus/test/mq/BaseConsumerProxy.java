@@ -34,7 +34,7 @@ public class BaseConsumerProxy {
             String correlationId = getCorrelationId(message);
 
             if (isConsumed(correlationId)) {// 消费幂等性, 防止消息被重复消费
-                log.info("重复消费, correlationId: {}", correlationId);
+              //  log.info("重复消费, correlationId: {}", correlationId);
                 return null;
             }
 
@@ -47,7 +47,7 @@ public class BaseConsumerProxy {
                 channel.basicAck(tag, false);// 消费确认
                 return result;
             } catch (Exception e) {
-                log.error("getProxy error", e);
+               // log.error("getProxy error", e);
                 channel.basicNack(tag, false, true);
                 return null;
             }

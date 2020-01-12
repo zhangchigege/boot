@@ -69,7 +69,7 @@ public class JodaTimeUtil {
         try {
             dateTime = dateTimeFormatter.parseDateTime(timeStr);
         } catch (Exception e) {
-            log.error("strToDate error: timeStr: {}", timeStr, e);
+           // log.error("strToDate error: timeStr: {}", timeStr, e);
             return null;
         }
 
@@ -113,7 +113,7 @@ public class JodaTimeUtil {
         try {
             dateTime = DateTime.parse(timeStr, format);
         } catch (Exception e) {
-            log.error("isBeforeNow error: timeStr: {}", timeStr, e);
+           // log.error("isBeforeNow error: timeStr: {}", timeStr, e);
             return null;
         }
         return dateTime.isBeforeNow();

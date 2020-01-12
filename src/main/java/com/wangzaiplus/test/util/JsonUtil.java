@@ -37,7 +37,7 @@ public class JsonUtil {
         try {
             return obj instanceof String ? (String) obj : objectMapper.writeValueAsString(obj);
         } catch (Exception e) {
-            log.warn("objToStr error: ", e);
+           // log.warn("objToStr error: ", e);
             return null;
         }
     }
@@ -50,7 +50,7 @@ public class JsonUtil {
         try {
             return clazz.equals(String.class) ? (T) str : objectMapper.readValue(str, clazz);
         } catch (Exception e) {
-            log.warn("strToObj error: ", e);
+          //  log.warn("strToObj error: ", e);
             return null;
         }
     }
@@ -63,7 +63,7 @@ public class JsonUtil {
         try {
             return (T) (typeReference.getType().equals(String.class) ? str : objectMapper.readValue(str, typeReference));
         } catch (Exception e) {
-            log.error("strToObj error", e);
+          //  log.error("strToObj error", e);
             return null;
         }
     }

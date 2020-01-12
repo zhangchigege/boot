@@ -20,7 +20,7 @@ public class MailConsumer implements BaseConsumer {
 
     public void consume(Message message, Channel channel) {
         Mail mail = MessageHelper.msgToObj(message, Mail.class);
-        log.info("收到消息: {}", mail.toString());
+       // log.info("收到消息: {}", mail.toString());
 
         boolean success = mailUtil.send(mail);
         if (!success) {

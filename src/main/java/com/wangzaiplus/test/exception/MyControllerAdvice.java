@@ -20,7 +20,7 @@ public class MyControllerAdvice {
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public ServerResponse exceptionHandler(Exception e) {
-        log.error("Exception: ", e);
+      //  log.error("Exception: ", e);
         return ServerResponse.error(ResponseCode.SERVER_ERROR.getMsg());
     }
 

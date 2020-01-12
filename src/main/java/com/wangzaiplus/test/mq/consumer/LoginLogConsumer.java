@@ -19,7 +19,7 @@ public class LoginLogConsumer implements BaseConsumer {
 
     @Override
     public void consume(Message message, Channel channel) {
-        log.info("收到消息: {}", message.toString());
+      //  log.info("收到消息: {}", message.toString());
         LoginLog loginLog = MessageHelper.msgToObj(message, LoginLog.class);
         loginLogService.insert(loginLog);
     }

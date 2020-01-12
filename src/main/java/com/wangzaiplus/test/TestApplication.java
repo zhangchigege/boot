@@ -11,51 +11,52 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @MapperScan("com.wangzaiplus.test.mapper")
 @EnableScheduling
-public class TestApplication  extends WebMvcConfigurerAdapter {
+public class TestApplication implements WebMvcConfigurer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TestApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TestApplication.class, args);
+    }
 
-	/**
-	 * 跨域
-	 * @return
-	 */
-	@Bean
-	public CorsFilter corsFilter() {
-		final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
-		final CorsConfiguration corsConfiguration = new CorsConfiguration();
-		corsConfiguration.setAllowCredentials(true);
-		corsConfiguration.addAllowedOrigin("*");
-		corsConfiguration.addAllowedHeader("*");
-		corsConfiguration.addAllowedMethod("*");
-		urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
-		return new CorsFilter(urlBasedCorsConfigurationSource);
-	}
+    /**
+     * 跨域
+     *
+     * @return
+     */
+    @Bean
+    public CorsFilter corsFilter() {
+        final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        final CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(urlBasedCorsConfigurationSource);
+    }
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		// 接口幂等性拦截器
-		registry.addInterceptor(apiIdempotentInterceptor());
-		// 接口防刷限流拦截器
-		registry.addInterceptor(accessLimitInterceptor());
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        // 接口幂等性拦截器
+        registry.addInterceptor(apiIdempotentInterceptor());
+        // 接口防刷限流拦截器
+        registry.addInterceptor(accessLimitInterceptor());
 
-		super.addInterceptors(registry);
-	}
+        WebMvcConfigurer.super.addInterceptors(registry);
+    }
 
-	@Bean
-	public ApiIdempotentInterceptor apiIdempotentInterceptor() {
-		return new ApiIdempotentInterceptor();
-	}
+    @Bean
+    public ApiIdempotentInterceptor apiIdempotentInterceptor() {
+        return new ApiIdempotentInterceptor();
+    }
 
-	@Bean
-	public AccessLimitInterceptor accessLimitInterceptor() {
-		return new AccessLimitInterceptor();
-	}
+    @Bean
+    public AccessLimitInterceptor accessLimitInterceptor() {
+        return new AccessLimitInterceptor();
+    }
 
 }

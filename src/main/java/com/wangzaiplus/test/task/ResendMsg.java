@@ -31,25 +31,25 @@ public class ResendMsg {
      */
     @Scheduled(cron = "0/30 * * * * ?")
     public void resend() {
-        log.info("开始执行定时任务(重新投递消息)");
+        //log.info("开始执行定时任务(重新投递消息)");
 
         List<MsgLog> msgLogs = msgLogService.selectTimeoutMsg();
         msgLogs.forEach(msgLog -> {
             String msgId = msgLog.getMsgId();
             if (msgLog.getTryCount() >= MAX_TRY_COUNT) {
                 msgLogService.updateStatus(msgId, Constant.MsgLogStatus.DELIVER_FAIL);
-                log.info("超过最大重试次数, 消息投递失败, msgId: {}", msgId);
+              //  log.info("超过最大重试次数, 消息投递失败, msgId: {}", msgId);
             } else {
                 msgLogService.updateTryCount(msgId, msgLog.getNextTryTime());// 投递次数+1
 
                 CorrelationData correlationData = new CorrelationData(msgId);
                 rabbitTemplate.convertAndSend(msgLog.getExchange(), msgLog.getRoutingKey(), MessageHelper.objToMsg(msgLog.getMsg()), correlationData);// 重新投递
 
-                log.info("第 " + (msgLog.getTryCount() + 1) + " 次重新投递消息");
+               // log.info("第 " + (msgLog.getTryCount() + 1) + " 次重新投递消息");
             }
         });
 
-        log.info("定时任务执行结束(重新投递消息)");
+      //  log.info("定时任务执行结束(重新投递消息)");
     }
 
 }
